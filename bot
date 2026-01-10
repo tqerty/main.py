@@ -1,0 +1,52 @@
+import telebot
+from bot_logic import motivation
+bot = telebot.TeleBot("")
+    
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    bot.reply_to(message, "Привет! Я твой Telegram бот. Напиши что-нибудь!")
+    
+@bot.message_handler(commands=['hello'])
+def send_hello(message):
+    bot.reply_to(message, "Привет! Как дела?")
+    
+@bot.message_handler(commands=['bye'])
+def send_bye(message):
+    bot.reply_to(message, "Пока! Удачи!")
+
+@bot.message_handler(commands = ['about'])
+def send_about(message):
+    bot.reply_to(message, 'Разраб: Нгуен Том, 14 лет, бот был создан разработчиком 27.12.2025')
+
+@bot.message_handler(commands = ['мотивация'])
+def give_motivation(message):
+    bot.reply_to(message, motivation())
+
+@bot.message_handler(commands = ['video'])
+def send_video(message):
+    f = open('till i collapse.mp4', 'rb')
+    bot.send_video(message.chat.id, f)
+    f.close()
+
+@bot.message_handler(commands = ['audio'])
+def send_audio(message):
+    with open('Ledy GaGa - Bed Romance.mp3', 'rb') as file:
+        bot.send_audio(message.chat.id, file)
+
+
+
+
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+    answer = message.text
+    if message.text.lower() in 'сукаблятьхуйсыншлюхидаунаутистебланебобокотакбасдолбаебидиоттупой':
+        answer = 'Не материться и не ругаться! Будьте приличными😇'
+    bot.reply_to(message, answer)
+    
+    
+bot.polling()
+
+
+
+
+
