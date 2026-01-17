@@ -33,6 +33,12 @@ def send_audio(message):
     with open('Ledy GaGa - Bed Romance.mp3', 'rb') as file:
         bot.send_audio(message.chat.id, file)
 
+#дополнительный фикс
+@bot.message_handler(commands = ['animals'])
+def send_animal(message):
+    animals_imgs = choice(os.listdir())
+    with open(animals_imgs, 'rb') as file:
+        bot.send_photo(message.chat.id, file)
 
 
 
